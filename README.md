@@ -24,9 +24,9 @@ Disclaimer:
 Usage:
 ------
 **xml_downloader.py**  
-Call download_xml with token and report number, filename is optional. 
-The resulting xml file will be saved in the same folder as the script.     
-download_xml(token, report_number, filename='data.xml')  
+Call download_xml with token and report number, filename is optional.  
+The resulting xml file will be saved in the same folder as the script.    
+download_xml(token, report_number, filename='data.xml')    
 
 Flex query report number is generated when you create a flex query.  
 https://www.interactivebrokers.com.hk/en/software/am/am/reports/activityflexqueries.htm
