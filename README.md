@@ -12,8 +12,8 @@ Some of the analysis in mind:
 
 Prerequisite:
 -------------
-Python 3.6
-(Optional) SQLite DB browswer https://sqlitebrowser.org/
+Python 3.6  
+(Optional) SQLite DB browswer https://sqlitebrowser.org/  
 
 Disclaimer:
 -----------
