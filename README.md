@@ -10,16 +10,22 @@ Some of the analysis in mind:
 - Tallying futures PnL over multiple rolling period.  
 - Account Equity graph/drawdown analysis/ratios  
 
+Prerequisite:
+-------------
+Python 3.6
+(Optional) SQLite DB browswer https://sqlitebrowser.org/
+
+Disclaimer:
+-----------
 **This is alpha software and just started developing, it just "worked" for me without any serious testing and I am not an experineced developer, so raising issues you found is welcome.**
-
-
-**Prerequisite: Python 3.6**
 
 **THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.**
 
-Usage:  
-xml_downloader.py  
-Call download_xml with token and report number, filename is optional. The resulting xml file will be saved in the same folder as the script.     
+Usage:
+------
+**xml_downloader.py**  
+Call download_xml with token and report number, filename is optional. 
+The resulting xml file will be saved in the same folder as the script.     
 download_xml(token, report_number, filename='data.xml')  
 
 Flex query report number is generated when you create a flex query.  
