@@ -36,6 +36,7 @@ def create_table():
         "tradePrice"	REAL,
         "tradeQuantity"	REAL,
         "tradeTax"	REAL,
+        "fxRateToBase" REAL,
         PRIMARY KEY("date","transactionID")
         );"""
         c.execute(sql)
@@ -57,7 +58,7 @@ def import_to_db(file):
         day_nav_list = [(x.attrib['reportDate'], x.attrib['accountId'], x.attrib['total'])
                         for x in root.iter('EquitySummaryByReportDateInBase')]
         c.executemany(sql, day_nav_list)
-        sql = "INSERT OR REPLACE INTO StatementOfFundsLine VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?)"
+        sql = "INSERT OR REPLACE INTO StatementOfFundsLine VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?)"
         sof_list = [(
             x.attrib['transactionID'],
             x.attrib['date'],
@@ -70,7 +71,8 @@ def import_to_db(file):
             x.attrib['tradeID'],
             x.attrib['tradePrice'],
             x.attrib['tradeQuantity'],
-            x.attrib['tradeTax']
+            x.attrib['tradeTax'],
+            x.attrib['fxRateToBase']
         ) for x in root.iter('StatementOfFundsLine')]
         c.executemany(sql, sof_list)
         sql = "INSERT OR REPLACE INTO SecurityInfo VALUES (?, ?, ?, ?, ?, ?, ?)"
