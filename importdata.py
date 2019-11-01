@@ -2,7 +2,7 @@ import sqlite3
 import xml.etree.ElementTree as ET
 
 
-def create_table():
+def __create_table():
     with sqlite3.connect('account.db') as conn:
         c = conn.cursor()
         sql = """CREATE TABLE IF NOT EXISTS "SecurityInfo" (
@@ -49,7 +49,7 @@ def create_table():
         c.execute(sql)
 
 
-def import_to_db(file):
+def __import_to_db(file):
     with open(file, 'r') as f:
         root = ET.fromstring(f.read())
     with sqlite3.connect('account.db') as conn:
@@ -97,10 +97,10 @@ def import_to_db(file):
         c.executemany(sql, sof_list)
 
 
-if __name__ == '__main__':
-    create_table()
+def import_data(filename='data.xml'):
+    __create_table()
     # import_to_db('data2015.xml')
     # import_to_db('data2016.xml')
     # import_to_db('data2017.xml')
     # import_to_db('data2018.xml')
-    import_to_db('data2019.xml')
+    __import_to_db(filename)
