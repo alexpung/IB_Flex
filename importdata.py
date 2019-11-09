@@ -47,6 +47,18 @@ def __create_table():
                 PRIMARY KEY("conid")
                 );"""
         c.execute(sql)
+        c = conn.cursor()
+        sql = """CREATE TABLE IF NOT EXISTS "CashTransaction" (
+                "conid"	INTEGER,
+                "assetCategory"	TEXT,
+                "currency"	TEXT,
+                "description"	TEXT,
+                "symbol"	TEXT,
+                "underlyingCategory"	TEXT,
+                "underlyingSymbol"	TEXT,
+                PRIMARY KEY("conid")
+                );"""
+        c.execute(sql)
 
 
 def __import_to_db(file):
@@ -99,8 +111,12 @@ def __import_to_db(file):
 
 def import_data(filename='data.xml'):
     __create_table()
-    # import_to_db('data2015.xml')
-    # import_to_db('data2016.xml')
-    # import_to_db('data2017.xml')
-    # import_to_db('data2018.xml')
     __import_to_db(filename)
+
+
+if __name__ == '__main__':
+    import_data('data2015.xml')
+    import_data('data2016.xml')
+    import_data('data2017.xml')
+    import_data('data2018.xml')
+    import_data('data2019.xml')
