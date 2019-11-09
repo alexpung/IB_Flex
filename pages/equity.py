@@ -20,12 +20,12 @@ def make_graph(df):
     }
 
 
-def create_layout(df_future_list):
+def create_layout(df_account_equity):
     return html.Div(
         [
             get_menu(),
             html.Div(
-                [dcc.Graph(id='equity_graph', figure=make_graph(df_future_list))],
+                [dcc.Graph(id='equity_graph', figure=make_graph(df_account_equity))],
                 className="equity graph"
             )
         ],
