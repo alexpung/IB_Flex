@@ -9,7 +9,7 @@ def get_menu():
             dbc.NavItem(children=[dbc.NavLink("Account value history", href="/equity history")]),
             dbc.NavItem(children=[dbc.NavLink("Futures contract", href="/future")]),
         ],
-        brand='Interactive broker Account Analysis',
+        brand='Interactive Broker Account Analysis',
         color="dark",
         dark=True,
     )
