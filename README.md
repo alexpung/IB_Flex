@@ -12,8 +12,8 @@ Some of the analysis in mind:
 
 Prerequisite:
 -------------
-Python 3.6  
-(Optional) SQLite DB browswer https://sqlitebrowser.org/  
+Dash. Dash dash-bootstrap-components, pandas
+See requirement.txt
 
 Disclaimer:
 -----------
@@ -39,3 +39,10 @@ example:
 import xml_downloader
 xml_downloader.download_xml('123456789012345', '123456', 'test.xml')
 ```
+**import_data.py** 
+Call create_table() to create account.db in the same directory with the database schema.
+Call import_to_db(file) to import an xml file to the database.
+
+**app.py**
+After the database is created, you can run this and a local server will be launched.
+The report can be accessed by going to http://127.0.0.1:8050/ with your browswer.
