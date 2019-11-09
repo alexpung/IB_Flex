@@ -39,9 +39,8 @@ df_future_table_show = df_future_table.merge(df_future_open_position_info, how='
 df_deposit_withdrawal = df_statement_of_fund[(df_statement_of_fund['activityCode'] == 'DEP') |
                                              (df_statement_of_fund['activityCode'] == 'WITH')]
 df_deposit_withdrawal['amountInBase'] = df_deposit_withdrawal['amount'] * df_deposit_withdrawal['fxRateToBase']
-df_deposit_withdrawal = df_deposit_withdrawal[['date', 'amountInBase']]
-df_equity_sum = df_equity_sum.merge(df_deposit_withdrawal, how='left', left_on='reportDate', right_on='date')
-df_equity_sum = df_equity_sum.drop(['date'], axis=1)
+df_deposit_withdrawal = df_deposit_withdrawal[['reportDate', 'amountInBase']].groupby('reportDate').sum()
+df_equity_sum = df_equity_sum.merge(df_deposit_withdrawal, how='left', on='reportDate')
 df_equity_sum = df_equity_sum.fillna(0)
 df_equity_sum['Net total deposit and withdrawal'] = df_equity_sum['amountInBase'].cumsum()
 df_equity_sum['Profit and Loss'] = df_equity_sum['total'] - df_equity_sum['Net total deposit and withdrawal']
