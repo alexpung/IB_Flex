@@ -26,6 +26,7 @@ def __create_table():
         sql = """CREATE TABLE IF NOT EXISTS "StatementOfFundsLine" (
         "transactionID"	TEXT,
         "date"	TEXT,
+        "reportDate" TEXT,
         "activityDescription"	TEXT,
         "activityCode"	TEXT,
         "amount"	REAL,
@@ -47,18 +48,6 @@ def __create_table():
                 PRIMARY KEY("conid")
                 );"""
         c.execute(sql)
-        c = conn.cursor()
-        sql = """CREATE TABLE IF NOT EXISTS "CashTransaction" (
-                "conid"	INTEGER,
-                "assetCategory"	TEXT,
-                "currency"	TEXT,
-                "description"	TEXT,
-                "symbol"	TEXT,
-                "underlyingCategory"	TEXT,
-                "underlyingSymbol"	TEXT,
-                PRIMARY KEY("conid")
-                );"""
-        c.execute(sql)
 
 
 def __import_to_db(file):
@@ -70,10 +59,11 @@ def __import_to_db(file):
         day_nav_list = [(x.attrib['reportDate'], x.attrib['accountId'], x.attrib['total'])
                         for x in root.iter('EquitySummaryByReportDateInBase')]
         c.executemany(sql, day_nav_list)
-        sql = "INSERT OR REPLACE INTO StatementOfFundsLine VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?)"
+        sql = "INSERT OR REPLACE INTO StatementOfFundsLine VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?)"
         sof_list = [(
             x.attrib['transactionID'],
             x.attrib['date'],
+            x.attrib['reportDate'],
             x.attrib['activityDescription'],
             x.attrib['activityCode'],
             x.attrib['amount'],
