@@ -8,28 +8,93 @@
 <div id="container" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/heatmap.js"></script>
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
-		var options = {
-			rangeSelector: {},
-			title: {
-				text: 'Account Value and Profit'
-			},
-			tooltip: {
-				valueDecimals: 2,
-				valuePrefix: '$'
-			},
-			series: [{
-				name: 'Account Value',
-				type: 'line'
-			}]
-		};
+  document.addEventListener('DOMContentLoaded', function () {
+    var options = {
+      colorAxis: {
+        minColor: '#00ff00',
+        maxColor: '#ff0000',
+        min: 0,
+        max: 50
+      },
+      yAxis: [{
+        labels: {
+          align: 'right',
+          x: -3
+        },
+        title: {
+          text: 'Value'
+        },
+        height: '60%',
+        lineWidth: 2,
+        resize: {
+          enabled: true
+        }
+      }, {
+        labels: {
+          align: 'right',
+          x: -3
+        },
+        title: {
+          text: 'Drawdown'
+        },
+        top: '65%',
+        height: '35%',
+        offset: 0,
+        lineWidth: 2
+      }],
+      title: {
+        text: 'Account Value and Profit'
+      },
+      series: [{
+        name: 'Account Value',
+        type: 'line',
+        colorAxis: false,
+        tooltip: {
+          valueDecimals: 2,
+          valuePrefix: '$'
+        }
+      }, {
+        name: 'Profit and Loss',
+        type: 'line',
+        colorAxis: false,
+        tooltip: {
+          valueDecimals: 2,
+          valuePrefix: '$'
+        }
+      }, {
+        name: 'Drawdown',
+        type: 'column',
+        yAxis: 1,
+        colorAxis: 0,
+        tooltip: {
+          valueDecimals: 2,
+          valueSuffix: '%'
+        },
+        dataGrouping: {
+          approximation: 'high'
+        }
+      }]
+    };
 		Highcharts.ajax({
 			url: '/data',
 			type: "GET",
 			dataType: "json",
 			success: function (data) {
-				options.series[0].data = data;
+              var accountValue = [];
+              var profitAndLoss = [];
+              var drawDown = [];
+              // The JSON data position are hardcoded, unfortunately
+              // 0: date, 1: account value, 2: profit, 3: drawdown
+              data.forEach(function (el) {
+                accountValue.push([el[0], el[1]]);
+                profitAndLoss.push([el[0], el[2]]);
+                drawDown.push([el[0], el[3]]);
+              });
+              options.series[0].data = accountValue;
+              options.series[1].data = profitAndLoss;
+              options.series[2].data = drawDown;
 				Highcharts.stockChart('container', options)
 			}
 		});
