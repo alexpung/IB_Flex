@@ -12,7 +12,6 @@ def index(request):
 def chart_data(request):
     conn = sqlite3.connect("account.db")
     with conn:
-        # Read all tables from database
         df_equity = pd.read_sql_query("SELECT * FROM EquitySummaryByReportDateInBase", conn,
                                       parse_dates={'reportDate': '%Y-%m-%d'}, index_col='reportDate')
         df_statement_of_fund = pd.read_sql_query("SELECT * FROM StatementOfFundsLine", conn,
@@ -32,10 +31,10 @@ def chart_data(request):
     # Calculate profit and loss data by subtracting deposit and withdrawal from account value
     df_equity_sum['Profit and Loss'] = df_equity_sum['total'] - df_equity_sum['Net total deposit and withdrawal']
     # Calculate account drawdown
-    df_equity_sum['Peak Total'] = df_equity_sum['total'].cummax()
-    df_equity_sum['Drawdown'] = (df_equity_sum['Peak Total'] - df_equity_sum['total']) * 100 \
-                                / df_equity_sum['Peak Total']
+    df_equity_sum['Peak Profit'] = df_equity_sum['Profit and Loss'].cummax()
+    df_equity_sum['Drawdown'] = ((df_equity_sum['Peak Profit'] - df_equity_sum['Profit and Loss']) * 100
+                                 / (df_equity_sum['total'] + df_equity_sum['Peak Profit']
+                                    - df_equity_sum['Profit and Loss']))
     df_equity_sum = df_equity_sum.fillna(0)
-    # TODO Provide the account equity data and return JSON response
-    df_display = df_equity_sum[['total']].copy().reset_index()
+    df_display = df_equity_sum[['total', 'Profit and Loss', 'Drawdown']].reset_index()
     return HttpResponse(df_display.to_json(orient='values'), content_type='application/json')
