@@ -1,5 +1,6 @@
 # IB_Flex
 Assorted python scripts for downloading Interactive Brokers (IB) flex query, then saving and analyzing them.
+**Note this will be rewritten using Django and highcharts, since the chart produced is much better.**
 
 
 The goal of this project is to store interactive broker account history in a sqlite database and analyse them using SQL/Python, perhaps with help of panda.
