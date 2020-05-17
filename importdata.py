@@ -1,9 +1,11 @@
 import sqlite3
 import xml.etree.ElementTree as ET
 
+DB_PATH = 'app/account.db'
+
 
 def __create_table():
-    with sqlite3.connect('account.db') as conn:
+    with sqlite3.connect(DB_PATH) as conn:
         c = conn.cursor()
         sql = """CREATE TABLE IF NOT EXISTS "SecurityInfo" (
         "conid"	INTEGER,
@@ -53,7 +55,7 @@ def __create_table():
 def __import_to_db(file):
     with open(file, 'r') as f:
         root = ET.fromstring(f.read())
-    with sqlite3.connect('account.db') as conn:
+    with sqlite3.connect(DB_PATH) as conn:
         c = conn.cursor()
         sql = "INSERT OR REPLACE INTO EquitySummaryByReportDateInBase VALUES (?, ?, ?)"
         day_nav_list = [(x.attrib['reportDate'], x.attrib['accountId'], x.attrib['total'])
@@ -110,3 +112,4 @@ if __name__ == '__main__':
     import_data('data2017.xml')
     import_data('data2018.xml')
     import_data('data2019.xml')
+    import_data('data2020.xml')

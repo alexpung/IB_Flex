@@ -1,16 +1,19 @@
 import sqlite3
 
 import pandas as pd
-from django.http import HttpResponse
-from django.shortcuts import render
+from flask import render_template
+
+from app import app
 
 
-def index(request):
-    return render(request, 'equity.html')
+@app.route('/')
+def index():
+    return render_template("equity.html")
 
 
-def chart_data(request):
-    conn = sqlite3.connect("account.db")
+@app.route('/data')
+def chart_data():
+    conn = sqlite3.connect('app/account.db')
     with conn:
         df_equity = pd.read_sql_query("SELECT * FROM EquitySummaryByReportDateInBase", conn,
                                       parse_dates={'reportDate': '%Y-%m-%d'}, index_col='reportDate')
@@ -37,4 +40,4 @@ def chart_data(request):
                                     - df_equity_sum['Profit and Loss']))
     df_equity_sum = df_equity_sum.fillna(0)
     df_display = df_equity_sum[['total', 'Profit and Loss', 'Drawdown']].reset_index()
-    return HttpResponse(df_display.to_json(orient='values'), content_type='application/json')
+    return df_display.to_json(orient='values')

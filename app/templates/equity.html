@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Django Highcharts Example</title>
@@ -11,7 +11,7 @@
 <script src="https://code.highcharts.com/modules/heatmap.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var options = {
+    const options = {
       colorAxis: {
         minColor: '#00ff00',
         maxColor: '#ff0000',
@@ -77,28 +77,28 @@
         }
       }]
     };
-		Highcharts.ajax({
-			url: '/data',
-			type: "GET",
-			dataType: "json",
-			success: function (data) {
-              var accountValue = [];
-              var profitAndLoss = [];
-              var drawDown = [];
-              // The JSON data position are hardcoded, unfortunately
-              // 0: date, 1: account value, 2: profit, 3: drawdown
-              data.forEach(function (el) {
-                accountValue.push([el[0], el[1]]);
-                profitAndLoss.push([el[0], el[2]]);
-                drawDown.push([el[0], el[3]]);
-              });
-              options.series[0].data = accountValue;
-              options.series[1].data = profitAndLoss;
-              options.series[2].data = drawDown;
-				Highcharts.stockChart('container', options)
-			}
-		});
-	});
+    Highcharts.ajax({
+      url: '/data',
+      type: "GET",
+      dataType: "json",
+      success: function (data) {
+        let accountValue = [];
+        let profitAndLoss = [];
+        let drawDown = [];
+        // The JSON data position are hardcoded, unfortunately
+        // 0: date, 1: account value, 2: profit, 3: drawdown
+        data.forEach(function (el) {
+          accountValue.push([el[0], el[1]]);
+          profitAndLoss.push([el[0], el[2]]);
+          drawDown.push([el[0], el[3]]);
+        });
+        options.series[0].data = accountValue;
+        options.series[1].data = profitAndLoss;
+        options.series[2].data = drawDown;
+        Highcharts.stockChart('container', options)
+      }
+    });
+  });
 </script>
 </body>
 </html>

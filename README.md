@@ -1,8 +1,10 @@
 # IB_Flex
-Assorted python scripts for downloading Interactive Brokers (IB) flex query, then saving and analyzing them.
+Assorted python scripts for downloading Interactive Brokers (IB) flex query, then saving and analyzing them. 
+Abandoned dash and using highchart and Flask instead.
 
 
-The goal of this project is to store interactive broker account history in a sqlite database and analyse them using SQL/Python, perhaps with help of panda.
+The goal of this project is to store interactive broker account history in a sqlite database and analyse them 
+using SQL/Python, perhaps with help of panda.
 
 Some of the analysis in mind:
 
@@ -12,14 +14,17 @@ Some of the analysis in mind:
 
 Prerequisite:
 -------------
-Dash. Dash dash-bootstrap-components, pandas
+Pandas, Flask
+
 See requirement.txt
 
 Disclaimer:
 -----------
-**This is alpha software and just started developing, it just "worked" for me without any serious testing and I am not an experineced developer, so raising issues you found is welcome.**
+**This is alpha software and just started developing, it just "worked" for me without any serious testing and I 
+am not an experineced developer, so raising issues you found is welcome.**
 
-**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.**
+**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.**
 
 Usage:
 ------
@@ -43,6 +48,6 @@ xml_downloader.download_xml('123456789012345', '123456', 'test.xml')
 Call create_table() to create account.db in the same directory with the database schema.
 Call import_to_db(file) to import an xml file to the database.
 
-**app.py**
-After the database is created, you can run this and a local server will be launched.
-The report can be accessed by going to http://127.0.0.1:8050/ with your browswer.
+Run run.py to start the server and browse the resulting chart with your browser.
+
+![Sample graph](sample.png)

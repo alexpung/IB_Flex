@@ -1,5 +1,5 @@
-/venv/
-/.idea/
 /xml_downloadcaller.py
-/account.db
 /*.xml
+venv
+.idea
+/app/account.db
