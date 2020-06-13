@@ -12,11 +12,15 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const options = {
+      legend: {
+        enabled: true
+      },
       colorAxis: {
         minColor: '#00ff00',
         maxColor: '#ff0000',
         min: 0,
-        max: 50
+        max: 50,
+        showInLegend: false
       },
       yAxis: [{
         labels: {
